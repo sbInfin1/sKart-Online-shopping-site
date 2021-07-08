@@ -37,6 +37,8 @@ class Order(models.Model):
     def __str__(self):
         return str(self.transaction_id)
 
+# Many-to-one relationship (one OrderItem instance can be linked to a single Order, 
+# but there can be multiple OrderItem instances linked to the same Order instance)
 class OrderItem(models.Model):
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, blank=True, null=True)
     order = models.ForeignKey(Order, on_delete=models.SET_NULL, blank=True, null=True)
