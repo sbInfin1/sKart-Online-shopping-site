@@ -37,6 +37,15 @@ class Order(models.Model):
     def __str__(self):
         return str(self.transaction_id)
 
+    @property
+    def shipping(self):
+        shipping = False
+        orderItems = self.orderitem_set.all()
+        for i in orderItems:
+            if i.product.digital == False:
+                shipping = True
+        return shipping
+
     '''
     Returns the total value off all items in cart taking into account the quantity
     of each item
