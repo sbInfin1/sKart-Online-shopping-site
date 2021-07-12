@@ -110,3 +110,11 @@ def home(request):
     context = {'products': products, 'menUpperProductsArr':menUpperProductsArr ,
         'womenWearProductsArr':womenWearProductsArr, 'cartItems': cartItems}
     return render(request, 'store/homepage.html', context)
+
+def filteredStore(request, category = "all"):
+    data = cartData(request)
+    cartItems = data['cartItems']
+
+    products = Product.objects.filter(category=category)
+    context = {'products': products, 'cartItems': cartItems}
+    return render(request, 'store/store.html', context)
