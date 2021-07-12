@@ -90,4 +90,16 @@ def processOrder(request):
     return JsonResponse('Payment complete', safe=False)
 
 def home(request):
-    return render(request, 'store/homepage.html')
+    data = cartData(request)
+    cartItems = data['cartItems']
+
+    products = Product.objects.all()
+    menUpperProducts = Product.objects.filter(category='men_upper')
+
+    menUpperProductsArr = []
+    for i in range(0, len(menUpperProducts), 4):
+        menUpperProductsArr.append(menUpperProducts[i:min(i+4, len(menUpperProducts))])
+
+
+    context = {'products': products, 'menUpperProductsArr':menUpperProductsArr , 'cartItems': cartItems}
+    return render(request, 'store/homepage.html', context)
