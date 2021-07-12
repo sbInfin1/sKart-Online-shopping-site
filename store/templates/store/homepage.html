@@ -44,7 +44,17 @@
         <div class="carousel-item active">
           <div class="row">
           {% for product in productBundle %}
-            <div class="col-3"><img class="d-block w-100" src="{{ product.imageURL }}" alt="First slide" height=360px></div>
+            <div class="col-3"><img class="d-block w-100 thumbnail_tall" src="{{ product.imageURL }}" alt="First slide">
+              <div class="box-element">
+                <h6><strong>{{ product.name }}</strong></h6>
+                <hr>
+                <!-- Custom attributes to update the cart with javascript -->
+                <button data-product="{{product.id}}" data-action="add"
+                class = "btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
+                <!-- <a class = "btn btn-outline-success" href="#">View</a> -->
+                <h4 style="display: inline-block; float: right">${{ product.price|floatformat:2 }}</h4>
+              </div>
+            </div>
           {% endfor %}
           </div>
         </div>
@@ -53,14 +63,24 @@
         <div class="carousel-item">
           <div class="row">
           {% for product in productBundle %}
-            <div class="col-3"><img class="d-block w-100" src="{{ product.imageURL }}" alt="First slide" height=360px></div>
+            <div class="col-3"><img class="d-block w-100 thumbnail_tall" src="{{ product.imageURL }}" alt="First slide">
+              <div class="box-element">
+                <h6><strong>{{ product.name }}</strong></h6>
+                <hr>
+                <!-- Custom attributes to update the cart with javascript -->
+                <button data-product="{{product.id}}" data-action="add"
+                class = "btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
+                <!-- <a class = "btn btn-outline-success" href="#">View</a> -->
+                <h4 style="display: inline-block; float: right">${{ product.price|floatformat:2 }}</h4>
+              </div>
+            </div>
           {% endfor %}
           </div>
         </div>
         {% endif %}
 
       {% endfor %}
-      
+
     <a class="carousel-control-prev" href="#product_carousel_1" role="button" data-slide="prev">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
       <span class="sr-only">Previous</span>
