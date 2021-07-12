@@ -12,7 +12,7 @@ def store(request):
     cartItems = data['cartItems']
 
     products = Product.objects.all()
-    context = {'products': products, 'cartItems': cartItems}
+    context = {'products': products, 'cartItems': cartItems, 'imgHeight':'200px'}
     return render(request, 'store/store.html', context)
 
 def cart(request):
@@ -116,5 +116,14 @@ def filteredStore(request, category = "all"):
     cartItems = data['cartItems']
 
     products = Product.objects.filter(category=category)
-    context = {'products': products, 'cartItems': cartItems}
+
+    imgHeight = '200px'
+    if category == 'men_upper' or category == 'women_wear':
+        imgHeight = '360px'
+    elif category == 'headphones':
+        imgHeight = '330px'
+    elif category == 'gaming_laptop':
+        imgHeight = '250px'
+
+    context = {'products': products, 'cartItems': cartItems, 'imgHeight':imgHeight}
     return render(request, 'store/store.html', context)
