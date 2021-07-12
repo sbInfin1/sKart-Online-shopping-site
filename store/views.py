@@ -100,6 +100,13 @@ def home(request):
     for i in range(0, len(menUpperProducts), 4):
         menUpperProductsArr.append(menUpperProducts[i:min(i+4, len(menUpperProducts))])
 
+    womenWearProducts = Product.objects.filter(category='women_wear')
 
-    context = {'products': products, 'menUpperProductsArr':menUpperProductsArr , 'cartItems': cartItems}
+    womenWearProductsArr = []
+    for i in range(0, len(womenWearProducts), 4):
+        womenWearProductsArr.append(womenWearProducts[i:min(i+4, len(womenWearProducts))])
+
+
+    context = {'products': products, 'menUpperProductsArr':menUpperProductsArr ,
+        'womenWearProductsArr':womenWearProductsArr, 'cartItems': cartItems}
     return render(request, 'store/homepage.html', context)
