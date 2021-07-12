@@ -88,3 +88,6 @@ def processOrder(request):
         )
 
     return JsonResponse('Payment complete', safe=False)
+
+def home(request):
+    return render(request, 'store/homepage.html')

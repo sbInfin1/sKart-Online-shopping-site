@@ -1,6 +1,6 @@
-body{
+/* body{
 	background-color: hsl(0, 0%, 98%);
-}
+} */
 
 h1,h2,h3,h4,h5,h6{
 	color:hsl(0, 0%, 30%);
@@ -25,9 +25,13 @@ h1,h2,h3,h4,h5,h6{
 	border-radius: 0 0 4px 4px;
 }
 
-.bg-dark{
+/* .bg-dark{
 	background-color: #4f868c!important;
-}
+} */
+
+/* .bg-dark{
+	background-color: #8c6e4f;
+} */
 
 #cart-icon{
 	width:25px;
