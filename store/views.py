@@ -8,6 +8,7 @@ from store.forms import UserForm
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 
 from .utils import cookieCart, cartData, guestOrder
 
@@ -45,7 +46,7 @@ def updateItem(request):
 
     print('action: {}, productId: {}'.format(action, productId))
 
-    customer = request.user.customer
+    customer = request.user
     product = Product.objects.get(id=productId)
     order, created = Order.objects.get_or_create(customer=customer, complete=False)
 
@@ -68,7 +69,7 @@ def processOrder(request):
     data = json.loads(request.body)
 
     if request.user.is_authenticated:
-        customer = request.user.customer
+        customer = request.user
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
 
     else:
@@ -172,3 +173,8 @@ def user_login(request):
             return HttpResponse("INVALID LOGIN DETAILS SUPPLIED.")
     else:
         return render(request, 'registration/login.html', {})
+
+@login_required
+def user_logout(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('home'))
