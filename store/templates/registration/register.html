@@ -10,29 +10,30 @@
 
     {% if registered %}
       <h3>Thankyou for Siging Up! You can now Login to continue shopping.</h3>
+      <br>
+      <a href="{% url 'home' %}" class = "btn btn-primary">Return to Homepage</a>
     {% else %}
-      <form method="POST"> <!-- enctype="multipart/form-data"> -->
+      <form method="post">
         {% csrf_token %}
-
-        {% for field in form %}
-          <div class="form-group row">
-            <label class="col-sm-2 col-form-label">{{ field.label }}</label>
-            <div class="col-sm-10">
-              {{ field }}
-            </div>
-          </div>
-        {% endfor %}
+        {{ user_form.non_field_errors }}
+        <div class="fieldWrapper form-group row">
+          {{ user_form.username.errors }}
+          <label for="{{ user_form.username.id_for_label }}" class="col-sm-2 col-form-label">Username</label>
+          {{ user_form.username }}
+        </div>
+        <div class="fieldWrapper form-group row">
+          {{ user_form.email.errors }}
+          <label for="{{ user_form.email.id_for_label }}" class="col-sm-2 col-form-label">Email</label>
+          {{ user_form.email }}
+        </div>
+        <div class="fieldWrapper form-group row">
+          {{ user_form.password.errors }}
+          <label for="{{ user_form.password.id_for_label }}" class="col-sm-2 col-form-label">Password</label>
+          {{ user_form.password }}
+        </div>
 
         <input type="submit" class = "btn btn-primary" value="Signup">
       </form>
-
-
-
-      <!-- <form method="POST">
-        {% csrf_token %}
-        {{ user_form.as_p }}
-        <input type="submit" class = "btn btn-primary" value="Signup">
-      </form> -->
     {% endif %}
   </div>
 </div>
