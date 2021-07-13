@@ -1,0 +1,22 @@
+{% extends 'registration/forms_base.html' %}
+{% load static %}
+
+{% block title_block %}Signup{% endblock %}
+
+{% block content_block %}
+<div class="row d-flex justify-content-center">
+  <div class="jumbotron w-50 text-center">
+    <h3 class="login-label">New User Signup</h3>
+
+    {% if registered %}
+      <h3>Thankyou for Siging Up! You can now Login to continue shopping.</h3>
+    {% else %}
+      <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ user_form.as_p }}
+        <input type="submit" class = "btn btn-primary" value="Signup">
+      </form>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

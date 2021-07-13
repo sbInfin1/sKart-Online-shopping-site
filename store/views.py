@@ -4,6 +4,11 @@ from django.http import JsonResponse
 import json
 import datetime
 
+from store.forms import UserForm
+from django.contrib.auth import authenticate, login, logout
+from django.http import HttpResponseRedirect, HttpResponse
+from django.urls import reverse
+
 from .utils import cookieCart, cartData, guestOrder
 
 # Create your views here.
@@ -127,3 +132,43 @@ def filteredStore(request, category = "all"):
 
     context = {'products': products, 'cartItems': cartItems, 'imgHeight':imgHeight}
     return render(request, 'store/store.html', context)
+
+def register(request):
+    registered = False
+
+    if request.method == 'POST':
+        user_form = UserForm(data=request.POST)
+
+        if user_form.is_valid():
+            user = user_form.save()
+            # Hashing the password using the set_password() method
+            user.set_password(user.password)
+            user.save()
+            registered = True
+        else:
+            print(user_form.errors)
+    else:
+        user_form = UserForm()
+
+    context = {'user_form': user_form, 'registered': registered}
+    return render(request, 'registration/register.html', context)
+
+def user_login(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(username = username, password = password)
+
+        if user:
+            if user.is_active:
+                login(request, user)
+                return HttpResponseRedirect(reverse('home'))
+            else:
+                return HttpResponse('ACCOUNT NOT ACTIVE.')
+        else:
+            print("Someone tried to login and failed.")
+            print("Username {} and password: {}".format(username, password))
+            return HttpResponse("INVALID LOGIN DETAILS SUPPLIED.")
+    else:
+        return render(request, 'registration/login.html', {})

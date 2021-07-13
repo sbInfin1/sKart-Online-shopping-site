@@ -1,0 +1,21 @@
+{% extends 'registration/forms_base.html' %}
+{% load static %}
+
+{% block title_block %}User Login{% endblock %}
+
+{% block content_block %}
+<div class="row d-flex justify-content-center">
+  <div class="jumbotron w-50 text-center">
+    <h3 class="login-label">User Login</h3>
+    <form action="{% url 'user_login' %}" method="POST">
+      {% csrf_token %}
+      <label for="username">Username:</label>
+      <input type="text" name="username" placeholder="Enter username">
+
+      <label for="password">Password:</label>
+      <input type="password" name="password">
+      <input type="submit" class = "btn btn-primary" value="Login">
+    </form>
+  </div>
+</div>
+{% endblock %}
