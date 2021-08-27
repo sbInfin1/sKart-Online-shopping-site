@@ -3,12 +3,14 @@ from .models import *
 from django.http import JsonResponse
 import json
 import datetime
+import razorpay
 
 from store.forms import UserForm
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
 
 from .utils import cookieCart, cartData, guestOrder
 
@@ -35,8 +37,10 @@ def checkout(request):
     items = data['items']
     order = data['order']
     cartItems = data['cartItems']
+    total_amt_in_paise = order.get_cart_total * 100
 
-    context = {'items':items, 'order': order, 'cartItems': cartItems}
+    context = {'items':items, 'order': order, 'cartItems': cartItems, 
+                'total_amt_in_paise': total_amt_in_paise}
     return render(request, 'store/checkout.html', context)
 
 def updateItem(request):
@@ -64,6 +68,7 @@ def updateItem(request):
 
     return JsonResponse('Item was added', safe=False)
 
+@csrf_exempt
 def processOrder(request):
     transaction_id = datetime.datetime.now().timestamp()
     data = json.loads(request.body)
@@ -92,6 +97,14 @@ def processOrder(request):
             city = data['shipping']['city'],
             zipcode = data['shipping']['zipcode'],
         )
+
+    # Razorpay integration
+    if request.method == 'POST':
+        amount = total*100
+        order_currency = 'INR'
+        order_receipt = 'order_rcptid_11'
+        client = razorpay.Client(auth=('rzp_test_czwexr0tNemZtI', '5T3SrkKGFdsZqeUWbBUS536a'))
+        payment = client.order.create(amount=amount, currency=order_currency, receipt=order_receipt)
 
     return JsonResponse('Payment complete', safe=False)
 
