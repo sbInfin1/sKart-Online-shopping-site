@@ -67,6 +67,7 @@ def guestOrder(request, data):
     cookieData = cookieCart(request)
     items = cookieData['items']
 
+    # This needs to be changed to the instantiation of the User class
     customer, created = Customer.objects.get_or_create(
         email=email,
     )
