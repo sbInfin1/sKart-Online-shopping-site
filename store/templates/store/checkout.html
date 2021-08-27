@@ -85,14 +85,14 @@
         </div>
         {% endfor %}
 
-        <h5>Items: {{ order.get_cart_items }}</h5>
-        <h5>Total: &#8377;{{ order.get_cart_total|floatformat:2 }}</h5>
+        <h5>Items: {{ get_cart_items }}</h5>
+        <h5>Total: &#8377;{{ get_cart_total|floatformat:2 }}</h5>
       </div>
     </div>
   </div>
 
  <script type="text/javascript">
-   var shipping = '{{ order.shipping }}'
+   var shipping = 'True'
 
    if(shipping == 'False'){
      document.getElementById('shipping-info').innerHTML = ''
@@ -126,7 +126,7 @@
 
    function submitFormData(){
      console.log('Payment button clicked!')
-     var total = '{{ order.get_cart_total }}'
+     var total = '{{ get_cart_total }}'
 
      var userFormData = {
        'name':null,
@@ -171,7 +171,7 @@
        cart = {}
        document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
 
-       window.location.href = '{% url 'store' %}'
+       window.location.href = "{% url 'home' %}"
      })
    }
  </script>

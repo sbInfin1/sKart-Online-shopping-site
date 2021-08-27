@@ -26,20 +26,24 @@ def store(request):
 def cart(request):
     data = cartData(request)
     items = data['items']
-    order = data['order']
+    get_cart_items = data['get_cart_items']
+    get_cart_total = data['get_cart_total']
     cartItems = data['cartItems']
 
-    context = {'items':items, 'order': order, 'cartItems':cartItems}
+    context = {'items':items, 'get_cart_items':get_cart_items, 
+                'get_cart_total':get_cart_total, 'cartItems':cartItems}
     return render(request, 'store/cart.html', context)
 
 def checkout(request):
     data = cartData(request)
     items = data['items']
-    order = data['order']
     cartItems = data['cartItems']
-    total_amt_in_paise = order.get_cart_total * 100
+    get_cart_items = data['get_cart_items']
+    get_cart_total = data['get_cart_total']
+    total_amt_in_paise = get_cart_total * 100
 
-    context = {'items':items, 'order': order, 'cartItems': cartItems, 
+    context = {'items':items, 'get_cart_items':get_cart_items, 
+                'get_cart_total':get_cart_total, 'cartItems': cartItems, 
                 'total_amt_in_paise': total_amt_in_paise}
     return render(request, 'store/checkout.html', context)
 
