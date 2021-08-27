@@ -31,7 +31,7 @@
 							<input class="form-control" type="text" name="zipcode" placeholder="Zip code..">
 						</div>
 						<div class="form-field">
-							<input class="form-control" type="text" name="country" placeholder="Zip code..">
+							<input class="form-control" type="text" name="country" placeholder="Country..">
 						</div>
           </div>
 
@@ -44,7 +44,7 @@
 
       <div class="box-element hidden" id="payment-info">
         <small>Payment Options</small>
-        <form class="text-center border border-light p-5" action="{% url 'home' %}" method="POST">
+        <form class="text-center border border-light p-5" action="javascript: submitFormData()">
           {% csrf_token %}
           <script
             src="https://checkout.razorpay.com/v1/checkout.js"
@@ -91,41 +91,6 @@
     </div>
   </div>
 
-  <!-- Include the PayPal JavaScript SDK
-  <script src="https://www.paypal.com/sdk/js?client-id=AYOGUYKREHZmkbBZXnRNgJKzxxxXTMpEPzbd-faE2Z6YxKFgjfmNnWh6kU6S3HFFrxhujOxx3KdXsO0U&currency=USD"></script>
-
-  <script>
-     var total = '{{ order.get_cart_total }}'
-      // Render the PayPal button into #paypal-button-container
-      paypal.Buttons({
-
-        style:{
-          color:'blue',
-          shape:'rect',
-        },
-
-          // Set up the transaction
-          createOrder: function(data, actions) {
-              return actions.order.create({
-                  purchase_units: [{
-                      amount: {
-                          value: parseFloat(total).toFixed(2)
-                      }
-                  }]
-              });
-          },
-
-          // Finalize the transaction
-          onApprove: function(data, actions) {
-              return actions.order.capture().then(function(details) {
-                  submitFormData()
-                  // Show a success message to the buyer
-                  alert('Transaction completed by ' + details.payer.name.given_name + '!');
-              });
-          }
-      }).render('#paypal-button-container');
-  </script> -->
-
  <script type="text/javascript">
    var shipping = '{{ order.shipping }}'
 
@@ -161,6 +126,7 @@
 
    function submitFormData(){
      console.log('Payment button clicked!')
+     var total = '{{ order.get_cart_total }}'
 
      var userFormData = {
        'name':null,
@@ -197,7 +163,7 @@
        },
        body: JSON.stringify({'form':userFormData, 'shipping':shippingInfo})
      })
-     .then((response) => response.json())
+    //  .then((response) => response.json())
      .then((data) => {
        console.log('Success:', data)
        alert('Transaction completed')

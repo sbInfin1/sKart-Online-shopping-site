@@ -85,18 +85,17 @@ def processOrder(request):
 
     # A check that the total obtained from the frontend form is the same as that calculated
     # in the backend. In this way, no user of the website can tamper with the price using javascript.
-    if total == order.get_cart_total:
-        order.complete = True
+    # if total == order.get_cart_total:
+    order.complete = True
     order.save()
 
-    if order.shipping == True:
-        ShippingAddress.objects.create(
-            customer = customer,
-            order = order,
-            address = data['shipping']['address'],
-            city = data['shipping']['city'],
-            zipcode = data['shipping']['zipcode'],
-        )
+    ShippingAddress.objects.create(
+        customer = customer,
+        order = order,
+        address = data['shipping']['address'],
+        city = data['shipping']['city'],
+        zipcode = data['shipping']['zipcode'],
+    )
 
     # Razorpay integration
     if request.method == 'POST':
