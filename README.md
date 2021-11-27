@@ -51,6 +51,11 @@ From the `Cart` page, the customer can either choose to proceed to the `Checkout
 <img src="https://github.com/sbInfin1/sKart-Online-shopping-site/blob/Moving_forward/screenshots/checkout_page.JPG" width="1024" height="548" title="checkout_page"/>
 
 ### Payment options
-<img src="https://github.com/sbInfin1/sKart-Online-shopping-site/blob/Moving_forward/screenshots/checkout_page_payment.JPG" width="1024" height="548" title="checkout_page_payment"/>
+<img src="https://github.com/sbInfin1/sKart-Online-shopping-site/blob/Moving_forward/screenshots/razorpay_button.JPG" width="1024" height="548" title="checkout_page_payment"/>
 
-On entering the name, email and shipping address details, the payment options get unlocked. The user can then, pay the required amount using `Paypal` or `Credit/Debit card` to complete the order.
+On entering the name, email and shipping address details, the payment options get unlocked. The user can then, pay the required amount using `Razorpay` to complete the order.
+
+<img src="https://github.com/sbInfin1/sKart-Online-shopping-site/blob/Moving_forward/screenshots/razorpay_window.JPG" width="1024" height="548" title="checkout_page_payment"/>
+<img src="https://github.com/sbInfin1/sKart-Online-shopping-site/blob/Moving_forward/screenshots/razorpay_payment.JPG" width="1024" height="548" title="checkout_page_payment"/>
+<img src="https://github.com/sbInfin1/sKart-Online-shopping-site/blob/Moving_forward/screenshots/transaction_complete.JPG" width="1024" height="548" title="checkout_page_payment"/>
+
