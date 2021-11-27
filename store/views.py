@@ -87,9 +87,6 @@ def processOrder(request):
     total = float(data['form']['total'])
     order.transaction_id = transaction_id
 
-    # A check that the total obtained from the frontend form is the same as that calculated
-    # in the backend. In this way, no user of the website can tamper with the price using javascript.
-    # if total == order.get_cart_total:
     order.complete = True
     order.save()
 
